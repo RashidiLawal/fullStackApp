@@ -35,9 +35,9 @@ html {
 body {
   margin: 0;
   background: #4d4d4d;
-  display: flex;
+  /* display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: center; */
 }
 
 .slide-in-left-enter {
