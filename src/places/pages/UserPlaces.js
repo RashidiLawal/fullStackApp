@@ -10,8 +10,8 @@ const DUMMY_PLACES = [
         imageUrl:"https://www.findingtheuniverse.com/wp-content/uploads/2020/07/Empire-State-Building-view-from-uptown_by_Laurence-Norah-2.jpg",
         address:"20 W 34th St., New York, NY 10001, United States",
         location:{
-            lat:"40.7484405",
-            lng:"-73.9856644"
+            lat:40.7484405,
+            lng:-73.9856644
         },
         creator:"u1"
     },
@@ -22,8 +22,8 @@ const DUMMY_PLACES = [
         imageUrl:"https://media.istockphoto.com/id/916091586/photo/burj-khalifa-dubai.jpg?s=612x612&w=0&k=20&c=VOBvv191Fippjuesf8ucODgC7AJMOEsY4Kf2XQ45puI=",
         address:"1 Sheikh Mohammed bin Rashid Blvd - Downtown Dubai - Dubai - United Arab Emirates",
         location:{
-            lat:"25.197197",
-            lng:"55.2743764"
+            lat:25.197197,
+            lng:55.2743764
         },
         creator:"u2"
     },
