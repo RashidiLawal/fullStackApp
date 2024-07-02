@@ -15,7 +15,12 @@ const formReducer = (state, action) => {
         }
       }
       return {
-
+        ...state,
+        inputs: {
+          ...state.inputs,
+          [action.inputId]: {value: action.value, isValid: action.isValid}
+        },
+        isValid: formIsValid
       }
     default:
       return state;
@@ -24,7 +29,7 @@ const formReducer = (state, action) => {
 
 const NewPlace = () => {
 
-  useReducer(formReducer, {
+  const [formState, dispatch] = useReducer(formReducer, {
     inputs: {
       title: {
         value: '',
@@ -39,7 +44,7 @@ const NewPlace = () => {
   });
 
   const titleInputHandler = useCallback( (id, value, isValid) => {
-
+    dispatch({type:"INPUT_CHANGE", value: value, isValid: isValid, inputId: id})
   }, []);
   const descriptionInputHandler = useCallback( (id, value, isValid) => {
 
