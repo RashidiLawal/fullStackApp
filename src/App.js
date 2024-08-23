@@ -2,6 +2,7 @@ import React from "react";
 // import "./App.css";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import Users from "./users/pages/Users";
+import Auth from "./users/pages/Auth";
 import { Redirect, Switch } from "react-router-dom/cjs/react-router-dom.min";
 import NewPlace from "./places/pages/NewPlace";
 import MainNavigation from "./shared/components/Navigation/MainNavigation";
@@ -25,6 +26,9 @@ function App() {
           </Route>
           <Route path="/places/:placeId">
             <UpdatePlace />
+          </Route>
+          <Route path="/auth" exact>
+            <Auth />
           </Route>
           <Redirect to="/" />
         </Switch>
