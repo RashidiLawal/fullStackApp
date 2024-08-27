@@ -1,14 +1,15 @@
-import React, {useState} from "react";
+import React, {useState, useContext} from "react";
 import useForm from "../../shared/hooks/form-hook";
 import { VALIDATOR_EMAIL, VALIDATOR_MINLENGTH, VALIDATOR_REQUIRE } from "../../shared/util/validators";
 import Button from '../../shared/components/FormElements/Button'
 import Input from "../../shared/components/FormElements/Input";
 import Card from "../../shared/components/UIElements/Card";
+import { AuthContext } from "../../shared/context/auth-context";
 import "./Auth.css";
 
 const Auth = () => {
-  const [isLoginMode, setIsLoginMode] = useState(true);
-  const [formState, inputHandler, setFormData] = useForm({
+    const [isLoginMode, setIsLoginMode] = useState(true);
+    const [formState, inputHandler, setFormData] = useForm({
     email: {
       value: "",
       isValid: false,
@@ -19,9 +20,12 @@ const Auth = () => {
     },
   });
 
+  const auth = useContext(AuthContext);
+
   const authSubmitHandler = (event) => {
     event.preventDefault();
     console.log(formState.inputs); // send this to the Backend
+    auth.login();
   };
 
   const switchModeHandler = () => {
@@ -77,7 +81,7 @@ const Auth = () => {
           validators={[VALIDATOR_MINLENGTH(5)]}
           onInput={inputHandler}
         />
-        <Button type="submit" disabled={!formState.isValid}>
+        <Button type="submit" disabled={!formState.isValid} >
             { isLoginMode ? "LOGIN" : "SIGNUP" }
         </Button>
       </form>
