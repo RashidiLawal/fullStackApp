@@ -25,9 +25,12 @@ function App() {
 
   if (isLoggedIn) {
     routes = (
-      <>
+      <Switch>
         <Route path="/" exact>
           <Users />
+        </Route>
+        <Route path="/:userId/places" exact>
+          <UserPlaces />
         </Route>
         <Route path="/places/new" exact>
           <NewPlace />
@@ -36,11 +39,11 @@ function App() {
           <UpdatePlace />
         </Route>
         <Redirect to="/" />
-      </>
+      </Switch>
     );
   } else {
     routes = (
-      <>
+      <Switch>
         <Route path="/" exact>
           <Users />
         </Route>
@@ -51,7 +54,7 @@ function App() {
           <Auth />
         </Route>
         <Redirect to="/auth" />
-      </>
+      </Switch>
     );
   }
 
@@ -62,9 +65,7 @@ function App() {
       <Router>
         <MainNavigation />
         <main>
-          <Switch>
             {routes}
-          </Switch>
         </main>
       </Router>
     </AuthContext.Provider>

@@ -27,6 +27,7 @@ const NavLinks = () => {
           <NavLink to="/auth">AUTHENTICATE</NavLink>
         </li>
       )}
+      {auth.isLoggedIn && <button onClick={auth.logout}>LOGOUT</button>}
     </ul>
   );
 };
