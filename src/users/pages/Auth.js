@@ -42,7 +42,7 @@ const Auth = () => {
         console.log(responseDta);
         
       } catch (error) {
-        console.log(error);
+        console.error('Error:', error.message);
       }
      
     }
