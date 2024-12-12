@@ -5,10 +5,14 @@ import Button from '../../shared/components/FormElements/Button'
 import Input from "../../shared/components/FormElements/Input";
 import Card from "../../shared/components/UIElements/Card";
 import { AuthContext } from "../../shared/context/auth-context";
+import ErrorModal from "../../shared/components/UIElements/ErrorModal";
+import LoadingSpinner from "../../shared/components/UIElements/LoadingSpinner";
 import "./Auth.css";
 
 const Auth = () => {
     const [isLoginMode, setIsLoginMode] = useState(true);
+    const [error, setError] = useState();
+    const [isLoading, setIsLoading] = useState(false);
     const [formState, inputHandler, setFormData] = useForm({
     email: {
       value: "",
@@ -26,6 +30,7 @@ const Auth = () => {
     event.preventDefault();
     if (isLoginMode) { 
     } else {
+      setIsLoading(true);
       try {
         const response = await fetch('http://localhost:5000/api/users/signup', {
           method:'POST',
@@ -40,14 +45,18 @@ const Auth = () => {
         });
         const responseDta = await response.json();
         console.log(responseDta);
-        
-      } catch (error) {
-        console.error('Error:', error.message);
+        setIsLoading(false);
+        auth.login(); 
+      } catch (err) {
+        // console.error('Error:', err.message);
+        console.log(err);
+        setIsLoading(false);
+        setError(err.message || 'Something went wrong. Please, try again!');
       }
      
     }
     // console.log(formState.inputs); // send this to the Backend
-    auth.login();
+    setIsLoading(false);
   };
 
   const switchModeHandler = () => {
@@ -69,6 +78,7 @@ const Auth = () => {
   }
   return (
     <Card className="authentication">
+      {isLoading && <LoadingSpinner asOverlay/>}
         <h2>
             Login Required
         </h2>
