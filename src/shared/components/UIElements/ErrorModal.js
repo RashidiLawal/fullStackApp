@@ -3,15 +3,16 @@ import React from 'react';
 import Modal from './Modal';
 import Button from '../FormElements/Button';
 
-const ErrorModal = props => {
+const ErrorModal = ({error, onClear}) => {
+
   return (
     <Modal
-      onCancel={props.onClear}
+      onCancel={onClear}
       header="An Error Occurred!"
-      show={!!props.error}
-      footer={<Button onClick={props.onClear}>Okay</Button>}
+      show={!!error}
+      footer={<Button onClick={onClear}>Okay</Button>}
     >
-      <p>{props.error}</p>
+      <p>{error}</p>
     </Modal>
   );
 };

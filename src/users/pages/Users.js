@@ -1,17 +1,48 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import UsersList from "../components/UsersList";
+import ErrorModal from "../../shared/components/UIElements/ErrorModal"
+import LoadingSpinner from "../../shared/components/UIElements/LoadingSpinner"
 
 const Users = () => {
-  const USERS = [
+  const [isloading, setIsloading] = useState(false);
+  const [error, setError] = useState();
+  const [loadedUser, setLoadedUser] = useState(true)
+ useEffect(() => {
+   const sendRequst = async () => {
+    setIsloading(true);
+    try {
+      const response = await fetch('http://localhost:5000/api/users');
+      const responseData = await response.json();
+
+      if (!response.ok) {
+        throw new Error(responseData.message);
+      };
+
+      setLoadedUser(responseData.users);
+    } catch (err) {
+      setError(err.message);
+    }
+    setIsloading(false);
+  };
+  sendRequst();
+}, []);
+
+const errorHandler = () => {
+  setError(null);
+}
+
+  return (
+    <>
+    <ErrorModal error={error} onClear={errorHandler} />
     {
-      id: "u1",
-      name: "azeez ola",
-      image:
-        "https://images.unsplash.com/photo-1718056514261-bb037cfe6ddd?q=80&w=2787&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-      places: 3,
-    },
-  ];
-  return <UsersList items={USERS} />;
+      isloading && <div className="center"><LoadingSpinner/></div>
+    }
+    {
+      !isloading && loadedUser && <UsersList items={loadedUser} />
+    }
+    
+    </>
+  )
 };
 
 export default Users;
